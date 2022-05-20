@@ -13,6 +13,21 @@ app.use(express.json());
 // Makes required files from directory public to the browser
 app.use(express.static('public'));
 
+// Gets and links html files for homepage data to display
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
+// Gets and links html files for notes page data to display
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
+
+// Gets and links html files for homepage if a non-existent api call is made
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+
 // Listens for server start
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}.`);
