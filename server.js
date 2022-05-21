@@ -28,12 +28,30 @@ app.get('/api/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/db/db.json'));
 });
 
+// Gets specific note 
+app.get('/api/notes/:id', (req, res) => {
+    let savedNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
+    res.json(savedNote[Number(req.params.id)]);
+});
+
 // Gets and links html files for homepage if a non-existent api call is made
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
-// 
+// Creates notes, posts notes, and sends data to server
+app.post('/api/notes', (req, res) => {
+    let savedNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
+    let freshNote = req.body;
+    let noteId = (savedNote.length).toString();
+
+    freshNote.id = noteId;
+    savedNote.push(freshNote);
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(savedNote));
+    console.log('New note has been saved. Note info: ', freshNote);
+    res.json(savedNote);
+});
 
 // Listens for server start
 app.listen(PORT, () => {
