@@ -53,6 +53,27 @@ app.post('/api/notes', (req, res) => {
     res.json(savedNote);
 });
 
+// Finds and deletes specified notes 
+app.delete('/api/notes/:id', () => {
+    let savedNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
+    let noteId = req.params.id;
+    let newNoteId = 0;
+
+    console.log(`Deleting the note containing this id: ${noteId}`);
+
+    savedNote = savedNote.filter(currentNote => {
+       return currentNote.id != noteId;
+    });
+
+    for (currentNote of savedNote) {
+        currentNote.id = newNoteId.toString();
+        newNoteId++;
+    }
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(savedNote));
+    res.json(savedNote);
+});
+
 // Listens for server start
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}.`);
