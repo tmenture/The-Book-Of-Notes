@@ -54,7 +54,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 // Finds and deletes specified notes 
-app.delete('/api/notes/:id', () => {
+app.delete('/api/notes/:id', (req, res) => {
     let savedNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
     let noteId = req.params.id;
     let newNoteId = 0;
