@@ -14,7 +14,7 @@ An application that allows a user to organize their thoughts and keep track of t
 
 ## Screen Shot:
 
-![Snapshot](https://tmenture.github.io/The-Book-Of-Notes/gitPic/the-book-of-notes-pic.png)
+![Snapshot](https://tmenture.github.io/The-Book-Of-Notes/gitPic/assets/the-book-of-notes-pic.png)
 
 ## Deployed Application:
 
